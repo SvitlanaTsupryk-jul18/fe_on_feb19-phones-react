@@ -28,13 +28,17 @@ class Viewer extends React.Component {
           Back
         </button>
 
-        <button>Add to basket</button>
+        <button
+          onClick={() => {
+            this.props.onAdd(this.props.phone.id)
+          }}
+        >Add to basket</button>
 
         <h1>{this.props.phone.name}</h1>
         <p>{this.props.phone.description}</p>
 
         <ul className="phone-thumbs">
-          { this.props.phone.images.map(imageUrl => (
+          {this.props.phone.images.map(imageUrl => (
             <li key={imageUrl}>
               <img
                 alt="thumbnail"
@@ -44,7 +48,7 @@ class Viewer extends React.Component {
                 }}
               />
             </li>
-          )) }
+          ))}
         </ul>
       </div>
     );

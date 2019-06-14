@@ -28,6 +28,16 @@ class App extends React.Component {
           ],
         };
       });
+
+      this.dellItem = (phoneId) => {
+        console.log(phoneId)
+        this.setState((prevState) => {
+          return {
+            basketItems: prevState.basketItems.filter((phone) => phone !== phoneId)
+          };
+        });
+        console.log(this.state.basketItems)
+      };
     };
   }
 
@@ -38,11 +48,13 @@ class App extends React.Component {
           <div className="row">
             <div className="col-md-2">
               <Filter />
-              <Basket items={this.state.basketItems} />
+              <Basket items={this.state.basketItems}
+                onDellItem={this.dellItem}
+              />
             </div>
 
             <div className="col-md-10">
-              { this.state.selectedPhone ? (
+              {this.state.selectedPhone ? (
                 <Viewer
                   phone={this.state.selectedPhone}
                   onBack={() => {
@@ -50,18 +62,19 @@ class App extends React.Component {
                       selectedPhone: null,
                     });
                   }}
-                />
-              ) : (
-                <Catalog
-                  phones={this.state.phones}
-                  onPhoneSelected={(phoneId) => {
-                    this.setState({
-                      selectedPhone: getById(phoneId),
-                    });
-                  }}
                   onAdd={this.addItem}
                 />
-              ) }
+              ) : (
+                  <Catalog
+                    phones={this.state.phones}
+                    onPhoneSelected={(phoneId) => {
+                      this.setState({
+                        selectedPhone: getById(phoneId),
+                      });
+                    }}
+                    onAdd={this.addItem}
+                  />
+                )}
             </div>
           </div>
         </div>
